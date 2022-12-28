@@ -1,0 +1,170 @@
+from durable.lang import *
+print("-------------------------------------------------------------------------")
+print("Hello!!")
+print("Welcome to Carrer Advisory System ")
+with ruleset('branch'):
+    @when_all((m.b == 'csai'))
+    def ai(d):
+        d.assert_fact({ 'job_options': 'Data Scientist'})
+        d.assert_fact({ 'job_options': 'Software Developer'})
+        d.assert_fact({ 'job_options': 'Machine Learning Analyst'})
+        d.assert_fact({ 'job_options': 'Artificial Intelligence Expert'})
+      
+    @when_all((m.b == 'cse'))
+    def cse(d):
+        d.assert_fact({ 'job_options': 'Full Stack Software Developer'})
+        d.assert_fact({ 'job_options': 'Software Developer'})
+        d.assert_fact({ 'job_options': 'Game Developer'})
+        d.assert_fact({ 'job_options': 'Mobile App Developer'})
+      
+    @when_all((m.b == 'csam'))
+    def csam(d):
+        d.assert_fact({ 'job_options': 'Big Data Analytics'})
+        d.assert_fact({ 'job_options': 'Software Developer'})
+
+    @when_all((m.b == 'csd'))
+    def csd(d):
+        d.assert_fact({ 'job_options': '3D Animations'})
+        d.assert_fact({ 'job_options': 'UI Designer'})
+        d.assert_fact({ 'job_options': 'Graphic Designer'})
+        d.assert_fact({ 'job_options': 'Product Designer'})
+    
+    @when_all((m.b == 'csb'))
+    def csb(d):
+        d.assert_fact({ 'job_options': 'Bioinformatics'})
+        d.assert_fact({ 'job_options': 'Software Developer'})
+
+    @when_all((m.b == 'ece'))
+    def ece(d):
+        d.assert_fact({ 'job_options': 'Hardware Job'})
+        d.assert_fact({ 'job_options': 'Software Developer'})
+        d.assert_fact({ 'job_options': 'R&D Software Engineer'})
+        d.assert_fact({ 'job_options': 'Telecom Engineer'})
+
+    @when_all(+m.job_options)
+    def output(d):
+        print('Career Suggestion: {0}'.format(d.m.job_options))
+
+cname = input("What is your name ? ")
+branch = input("What is your branch ? ")
+print("-------------------------------------------------------------------------")
+print("                              BRANCH")
+print("-------------------------------------------------------------------------")
+print("According to your branch these are the carreer options available to you:- ")
+assert_fact('branch', { 'b': branch })
+
+with ruleset('interests'):
+    @when_all((m.ml == 'y'))
+    def ml(d):
+        d.assert_fact({ 'interest': 'Machine Learning Engineer'})
+    @when_all((m.wd == 'y'))
+    def wd(d):
+        d.assert_fact({ 'interest': 'Website Developer'})
+    @when_all((m.cw == 'y'))
+    def cw(d):
+        d.assert_fact({ 'interest': 'Content Writer'})
+    @when_all((m.ve == 'y'))
+    def vw(d):
+        d.assert_fact({ 'interest': 'Video Editor'})
+    @when_all((m.mc == 'y'))
+    def mc(d):
+        d.assert_fact({ 'interest': 'Content Creator'})
+    @when_all((m.p == 'y'))
+    def p(d):
+        d.assert_fact({ 'interest': 'Photography'})
+    @when_all(+m.interest)
+    def output(d):
+        print('Career Suggestion: {0}'.format(d.m.interest))
+
+print("-------------------------------------------------------------------------")
+print("                              INTERESTS")
+print("-------------------------------------------------------------------------")
+print("Heyy {0}, Let us know about your interests".format(cname))
+
+print("Here are some question that we will like to ask you in order to understand your interests better. Answer these questions in y or n")
+a = input("Are you interested in machine learning? ")
+b = input("Have you ever worked on web development and want to purse it? ")
+c = input("Are you interested in working as a content writer? ")
+e = input("Are you interested in video editing? ")
+f = input("Are you interested in making content? ")
+g = input("Are you interested in photography? ") 
+print("According to your interests these are the carreer options available to you:- ")
+assert_fact('interests', { 'ml': a, 'wd': b,'cw' : c,'ve': e ,'mc':f, 'p': g})
+
+with ruleset('courses'):
+    @when_all((m.os == 'y'))
+    def os(d):
+        d.assert_fact({ 'course': 'Operating System Developer'})
+    @when_all((m.dip == 'y'))
+    def dip(d):
+        d.assert_fact({ 'course': 'Image Processing Engineer'})
+    @when_all((m.rob == 'y'))
+    def rob(d):
+        d.assert_fact({ 'course': 'Robotics Engineer'})
+    @when_all((m.cs == 'y'))
+    def cs(d):
+        d.assert_fact({ 'course': 'Cyber Security Specialist'})
+    @when_all((m.cn == 'y'))
+    def cn(d):
+        d.assert_fact({ 'course': 'Computer Network Support Specialist'})
+    @when_all((m.dm == 'y'))
+    def dm(d):
+        d.assert_fact({ 'course': 'Data Mining Executive'})
+    @when_all(+m.course)
+    def output(d):
+        print('Career Suggestion: {0}'.format(d.m.course))
+
+print("-------------------------------------------------------------------------")
+print("                              COURSES AND GPA")
+print("-------------------------------------------------------------------------")
+print("Heyy {0}, Let us know about the courses you have done and the gpa obtained in that courses.".format(cname))
+os = input("Have you taken operating system course in your btech? (y/n) ")
+if os == 'y' :
+  s = float(input("What is the gpa obtained in operating sytem course? "))
+  if s > 7.5 :
+    os = 'y'
+  else:
+    os = 'n'
+
+dip = input("Have you taken digital image processing course in your btech? (y/n) ")
+if dip == 'y' :
+  s = float(input("What is the gpa obtained in digital image processing? "))
+  if s>7.5 :
+    dip = 'y'
+  else:
+    dip = 'n'
+
+rob = input("Have you taken robotics course in your btech? (y/n) ")
+if rob == 'y' :
+  s = float(input("What is the gpa obtained in robotics? "))
+  if s>7.5 :
+    rob = 'y'
+  else:
+    rob = 'n'
+  
+cs = input("Have you taken cyber security course in your btech? (y/n) ")
+if cs == 'y' :
+  s = float(input("What is the gpa obtained in cyber security? "))
+  if s>7.5 :
+    cs = 'y'
+  else:
+    cs = 'n'
+
+cn = input("Have you taken computer networks course in your btech? (y/n) ")
+if cn == 'y' :
+  s = float(input("What is the gpa obtained in computer networks? "))
+  if s>7.5 :
+    cn = 'y'
+  else:
+    cn = 'n'
+  
+dm = input("Have you taken data mining course in your btech? (y/n) ")
+if dm == 'y' :
+  s = float(input("What is the gpa obtained in data mining? "))
+  if s>7.5 :
+    dm = 'y'
+  else:
+    dm = 'n'
+
+print("According to your courses and gpa obtained in that courses these are the carreer options available to you:- ")
+assert_fact('courses', { 'os': os, 'dip': dip,'rob' : rob,'cs': cs ,'cn':cn,'dm':dm})
